@@ -1,0 +1,121 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ec">
+  <meta name="description" content="拾帧：在本地解析视频链接、查看画质，并下载视频或提取音频。">
+  <title>拾帧 FRAMEKEEP · 本地媒体工作台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231d3933'/%3E%3Cpath d='M17 16h30v32H17z' fill='none' stroke='%23ddebab' stroke-width='3'/%3E%3Cpath d='m28 24 13 8-13 8z' fill='%23ddebab'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">跳到工作台</a>
+  <div class="app-shell">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="拾帧首页">
+        <svg class="brand-mark" width="38" height="38" viewBox="0 0 38 38" fill="none" aria-hidden="true"><rect width="38" height="38" rx="11" fill="currentColor"/><path d="M10 10H28V28H10V10Z" stroke="#E2EDB5" stroke-width="1.5"/><path d="M17 14L24 19L17 24V14Z" fill="#E2EDB5"/><path d="M7 13H11M7 19H11M7 25H11M27 13H31M27 19H31M27 25H31" stroke="#E2EDB5" stroke-width="1.5"/></svg>
+        <span class="brand-name">拾帧<span class="brand-en">FRAMEKEEP</span></span>
+      </a>
+      <nav class="main-nav" aria-label="主导航"><a class="nav-link active" href="#workspace" aria-current="page">工作台</a><button class="nav-link" type="button" id="help-button">使用说明 <span aria-hidden="true">↗</span></button></nav>
+      <button id="health-button" class="environment-button" type="button" aria-haspopup="dialog"><span id="health-dot" class="status-dot loading" aria-hidden="true"></span><span id="health-label">正在连接本地服务</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="little-cross" aria-hidden="true">✳</span> YOUR MEDIA, WITH YOU.</p>
+          <h1 id="hero-title">让精彩，<span>留在本地。</span></h1>
+          <p class="hero-description">一个链接，收藏一段影像，或留下一段声音。<br>解析、选择、下载，在你的电脑上完成。</p>
+          <div class="hero-tags" aria-label="支持的输出参数"><span>H.264 视频</span><span>AAC 音频</span><span>GPL 开源</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span class="art-caption">A LITTLE SPACE FOR WHAT YOU LOVE</span>
+          <svg class="film-illustration" viewBox="0 0 440 280" fill="none">
+            <path d="M15 227H417M56 36V255" stroke="#CED2C4" stroke-width="1"/>
+            <circle cx="342" cy="51" r="32" fill="#DFE9B6"/><path d="M326 51H358M342 35V67" stroke="#7A895C"/>
+            <g transform="translate(79 58) rotate(-9 142 83)">
+              <rect x="8" y="12" width="291" height="174" rx="7" fill="#D8DACB"/>
+              <rect width="291" height="174" rx="7" fill="#29443B"/>
+              <path d="M26 0V174M265 0V174" stroke="#607065" stroke-width="1"/>
+              <g fill="#F4F3EC"><rect x="8" y="13" width="10" height="14" rx="2"/><rect x="8" y="40" width="10" height="14" rx="2"/><rect x="8" y="67" width="10" height="14" rx="2"/><rect x="8" y="94" width="10" height="14" rx="2"/><rect x="8" y="121" width="10" height="14" rx="2"/><rect x="8" y="148" width="10" height="14" rx="2"/><rect x="273" y="13" width="10" height="14" rx="2"/><rect x="273" y="40" width="10" height="14" rx="2"/><rect x="273" y="67" width="10" height="14" rx="2"/><rect x="273" y="94" width="10" height="14" rx="2"/><rect x="273" y="121" width="10" height="14" rx="2"/><rect x="273" y="148" width="10" height="14" rx="2"/></g>
+              <rect x="36" y="13" width="219" height="148" rx="2" fill="#93A994"/>
+              <circle cx="204" cy="49" r="18" fill="#E4E8B2"/>
+              <path d="m36 145 67-88 62 73 39-47 51 62v16H36z" fill="#647F6C"/>
+              <path d="m36 152 72-62 59 49 42-28 46 39v11H36z" fill="#36574A"/>
+              <circle cx="144" cy="87" r="24" fill="#F4F3EC" fill-opacity=".87"/><path d="m139 76 16 11-16 11V76Z" fill="#29443B"/>
+            </g>
+            <g transform="translate(257 171) rotate(6 70 35)"><rect width="139" height="63" rx="9" fill="#E2EDB5" stroke="#6C7B55"/><g stroke="#435B3C" stroke-width="3" stroke-linecap="round"><path d="M20 28v7M29 21v21M38 25v14M47 15v33M56 23v17M65 18v28M74 25v13M83 12v40M92 21v23M101 17v31M110 24v17M119 28v7"/></g></g>
+            <path d="M65 18v16M57 26h16M399 127v20M389 137h20" stroke="#53654F" stroke-width="1.5"/>
+          </svg>
+          <span class="art-footnote"><span class="art-footnote-line"></span> KEEP THE FRAME. KEEP THE FEELING.</span>
+        </div>
+      </section>
+
+      <div class="workspace-heading" id="workspace"><h2>开始你的收藏</h2><span>YOUR LOCAL WORKSPACE <span aria-hidden="true">↙</span></span></div>
+      <div id="connection-alert" class="notice notice-error" role="alert" hidden></div>
+      <div class="workspace-grid">
+        <section class="panel source-panel" aria-labelledby="source-heading">
+          <div class="panel-heading"><div class="heading-title"><span class="step-number">01</span><h3 id="source-heading">放入一个链接</h3></div><span class="panel-note">SOURCE</span></div>
+          <form id="analyze-form" novalidate>
+            <label class="field-label" for="video-url">视频网页或媒体直链</label>
+            <div class="url-input-wrap"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m10 13 4-4m-5 7-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m0 4a4 4 0 0 0 6 0l4-4a4 4 0 0 0-6-6l-1 1" transform="translate(1 2) scale(.88)" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="video-url" name="url" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="粘贴视频链接或手机分享文字" aria-describedby="url-hint analyze-error" required><button type="submit" id="analyze-button" class="button button-dark"><span>解析链接</span><span aria-hidden="true">↗</span></button></div>
+            <div class="analyze-mode-row"><label class="field-label" for="analyze-mode">解析方式</label><select id="analyze-mode" aria-describedby="analyze-mode-hint"><option value="auto">自动解析 · 推荐</option><option value="browser">浏览器解析 · 手动登录</option></select></div>
+            <p id="analyze-mode-hint" class="muted-text mode-hint">先尝试页面和平台解析；需要登录时，可切换到浏览器解析。</p>
+            <p id="download-limit-hint" class="muted-text">每个任务的来源文件上限：10 GiB。</p>
+            <div class="input-bottom"><p id="url-hint" class="muted-text">支持视频链接、抖音弹窗地址与手机分享文字。</p><div class="input-actions"><button id="douyin-settings-button" class="text-button" type="button" aria-haspopup="dialog">抖音访问设置 <span aria-hidden="true">↗</span></button><button id="demo-button" class="text-button" type="button" hidden>用示例体验 <span aria-hidden="true">↗</span></button></div></div>
+            <p id="analyze-error" class="inline-error" role="alert" hidden></p>
+            <p id="analyze-normalized" class="muted-text normalized-url" hidden></p>
+            <div class="input-actions"><button id="analyze-browser-button" class="text-button session-error-action" type="button" hidden>在浏览器中解析 <span aria-hidden="true">↗</span></button><button id="analyze-session-button" class="text-button session-error-action" type="button" aria-haspopup="dialog" hidden>配置抖音访问 <span aria-hidden="true">↗</span></button></div>
+            <details id="analyze-diagnostics" class="analyze-diagnostics" hidden><summary>解析过程 <span id="diagnostics-count"></span></summary><p id="diagnostics-source" class="muted-text" hidden></p><ol id="diagnostics-list" class="diagnostics-list"></ol></details>
+          </form>
+
+          <div id="source-empty" class="source-empty">
+            <div class="empty-frame" aria-hidden="true"><span></span><svg width="31" height="31" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="24" height="20" rx="3" stroke="currentColor" stroke-width="1.3"/><path d="m13 11 8 5-8 5V11Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg></div>
+            <p class="empty-title">下一段好内容，从这里开始</p>
+            <p class="muted-text">解析后，即可查看画质、时长与可用格式。</p>
+          </div>
+          <div id="source-loading" class="source-loading" role="status" hidden><span class="large-spinner" aria-hidden="true"></span><p id="source-loading-title">正在读取媒体信息</p><span id="source-loading-hint" class="muted-text">有些网站需要多一点时间，请稍候…</span><button id="cancel-browser-button" class="text-button browser-cancel" type="button" hidden>取消浏览器解析</button></div>
+          <article id="media-card" class="media-card" hidden>
+            <div class="media-top"><div class="media-visual" id="media-visual" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="26" height="22" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="m13 11 8 5-8 5V11Z" fill="currentColor"/></svg></div><div class="media-title-wrap"><span id="media-extractor" class="eyebrow small">媒体信息</span><h4 id="media-title"></h4><a id="media-source-link" class="text-link" target="_blank" rel="noreferrer noopener">查看来源 <span aria-hidden="true">↗</span></a></div><span class="ready-badge">已解析 <span aria-hidden="true">✓</span></span></div>
+            <dl class="media-facts"><div><dt>源画质</dt><dd id="media-quality">—</dd></div><div><dt>时长</dt><dd id="media-duration">—</dd></div><div><dt>视频编码</dt><dd id="media-codec">—</dd></div><div><dt>帧率</dt><dd id="media-fps">—</dd></div></dl>
+            <p id="media-extra" class="muted-text media-extra"></p>
+          </article>
+          <div class="source-footer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3" stroke="currentColor" stroke-width="1.5"/></svg><span>处理在本地运行 · 你的文件由你掌管</span></div>
+        </section>
+
+        <section class="panel export-panel" aria-labelledby="export-heading">
+          <div class="panel-heading"><div class="heading-title"><span class="step-number">02</span><h3 id="export-heading">选一个保存方式</h3></div><span class="panel-note">EXPORT</span></div>
+          <fieldset class="kind-fieldset"><legend class="field-label">提取内容</legend><div class="segmented-control"><label><input type="radio" name="kind" value="video" checked><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m17 10 5-3v10l-5-3" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>视频</span></label><label><input type="radio" name="kind" value="audio"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l11-2v13M9 9l11-2" stroke="currentColor" stroke-width="1.6"/><ellipse cx="6" cy="18" rx="3" ry="3" stroke="currentColor" stroke-width="1.6"/><ellipse cx="17" cy="16" rx="3" ry="3" stroke="currentColor" stroke-width="1.6"/></svg>音频</span></label><label><input type="radio" name="kind" value="original"><span>原文件 <span class="mini-arrow" aria-hidden="true">↓</span></span></label></div></fieldset>
+          <div id="video-options" class="video-settings">
+            <div class="option-row"><div class="select-field"><label class="field-label" for="video-container">视频格式</label><select id="video-container"><option value="mp4">MP4 · 推荐</option><option value="avi">AVI</option></select></div><div class="select-field"><label class="field-label" for="video-height">输出分辨率</label><select id="video-height" aria-describedby="video-quality-hint"><option value="best">与源分辨率一致</option><option value="2160">最高 2160p · 4K</option><option value="1440">最高 1440p · 2K</option><option value="1080">最高 1080p</option><option value="720">最高 720p</option><option value="480">最高 480p</option><option value="360">最高 360p</option></select></div></div>
+            <div class="option-row"><div class="select-field"><label class="field-label" for="video-quality">编码质量</label><select id="video-quality" aria-describedby="video-quality-hint"><option value="balanced">均衡 · 速度优先</option><option value="high" selected>高保真 · 推荐</option><option value="maximum">最高质量 · 文件更大</option></select></div><div class="select-field"><label class="field-label" for="video-fps">输出帧率</label><select id="video-fps" aria-describedby="frame-rate-hint"><option value="source">跟随来源帧率</option><option value="24">24 fps</option><option value="25">25 fps</option><option value="30">30 fps</option><option value="48">48 fps</option><option value="50">50 fps</option><option value="60">60 fps</option><option value="90">90 fps</option><option value="120">120 fps</option><option value="custom">自定义帧率…</option></select></div></div>
+            <p id="video-quality-hint" class="muted-text setting-hint">尽量保留源细节；未启用 AI 时，输出分辨率是上限，只缩小、不放大。</p>
+            <div class="upscale-field"><div class="field-heading"><label class="field-label" for="video-upscale">AI 超分辨率</label><button id="upscale-settings-button" class="text-button" type="button" aria-haspopup="dialog">本地接口设置 <span aria-hidden="true">↗</span></button></div><select id="video-upscale" aria-describedby="upscale-hint upscale-availability"><option value="none">关闭 · 保留源尺寸上限</option><option value="auto">自动选择 · RTX 优先</option><option value="rtx">RTX AI 超分</option><option value="comfyui">ComfyUI · 本地模型</option></select><p id="upscale-hint" class="muted-text setting-hint">开启后可将低分辨率视频提升到目标尺寸。需要可用的本地 AI 服务。</p><p id="upscale-availability" class="upscale-availability" role="status" hidden></p></div>
+            <div id="custom-fps-field" class="custom-fps-field" hidden><label class="field-label" for="custom-fps">自定义帧率</label><div class="number-input-wrap"><input id="custom-fps" type="number" inputmode="numeric" min="1" max="120" step="1" value="120" aria-describedby="custom-fps-hint custom-fps-error"><span aria-hidden="true">fps</span></div><span id="custom-fps-hint" class="muted-text">1–120 的整数</span><p id="custom-fps-error" class="inline-error" role="alert" hidden></p></div>
+            <div class="select-field frame-rate-field"><label class="field-label" for="frame-rate-mode">提升帧率的方式</label><select id="frame-rate-mode" aria-describedby="frame-rate-hint"><option value="interpolate" selected>流畅插帧 · 生成中间帧</option><option value="fast">快速转换 · 复制或丢弃帧</option></select><p id="frame-rate-hint" class="muted-text setting-hint">跟随来源帧率，无需插帧。</p></div>
+            <div class="select-field frame-rate-field"><label class="field-label" for="processing-mode">处理硬件</label><select id="processing-mode" aria-describedby="processing-hint"><option value="auto" selected>GPU 优先 · 推荐</option><option value="gpu">仅 GPU · 不回退 CPU</option><option value="cpu">CPU 兼容</option></select><p id="processing-hint" class="muted-text setting-hint" role="status">正在检测 GPU 插帧与硬件编码能力…</p></div>
+          </div>
+          <div id="audio-options" hidden><label class="field-label" for="audio-container">音频格式</label><select id="audio-container"><option value="m4a">M4A · AAC 音频，推荐</option><option value="aac">AAC · 原始音频流</option></select></div>
+          <div id="original-options" hidden><label class="field-label" for="original-format">源文件版本</label><select id="original-format"><option value="best">自动选择最佳画质</option></select></div>
+          <div class="encoding-note" id="encoding-note"><span class="encoding-symbol" aria-hidden="true">≋</span><div><p id="encoding-title">H.264 视频 + AAC 音频</p><span id="encoding-detail">48,000 Hz · 256 kbps · 通用兼容</span></div></div>
+          <p id="format-note" class="format-note">按所选参数重新编码；未启用 AI 时，保留来源已有细节。</p>
+          <button id="create-job-button" type="button" class="button button-accent" disabled><span id="create-job-label">解析后开始提取</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <p id="export-error" class="inline-error" role="alert" hidden></p>
+        </section>
+      </div>
+
+      <section class="jobs-section" aria-labelledby="jobs-heading"><div class="jobs-heading"><div><h2 id="jobs-heading">下载任务 <span id="job-count" class="job-count">0</span></h2><p class="muted-text">提取完成后，将文件保存到你喜欢的位置。</p></div><span class="small-caps">MADE TO KEEP</span></div><div id="jobs-error" class="notice notice-error" role="alert" hidden></div><div id="jobs-empty" class="jobs-empty"><span class="tray-icon" aria-hidden="true">↓</span><div><p>这里还没有下载任务</p><span class="muted-text">准备好链接，开始你的第一份收藏。</span></div><span class="empty-dash" aria-hidden="true">—</span></div><div id="jobs-list" class="jobs-list" aria-live="polite" aria-relevant="additions"></div></section>
+    </main>
+    <footer class="page-footer"><div><span class="footer-brand">拾帧</span><span>把喜欢的，好好留住。</span></div><p>本地运行 <span aria-hidden="true">/</span> GPL-3.0-or-later <span aria-hidden="true">/</span> <span id="app-version">v1.0</span></p></footer>
+  </div>
+
+  <dialog id="help-dialog" class="info-dialog" aria-labelledby="help-title"><div class="dialog-heading"><h2 id="help-title">从链接到本地，三步就好。</h2><button class="icon-button dialog-close" type="button" aria-label="关闭使用说明">×</button></div><ol class="help-steps"><li><strong>粘贴并解析</strong><p>复制视频网页地址、媒体直链或分享文字，点击「解析链接」。读取成功后会显示标题、源画质、时长和编码信息。需要登录时，选择「浏览器解析」并在打开的独立浏览器中登录、播放目标视频；程序获取媒体信息后会自动返回，等待期间可取消。</p></li><li><strong>选择保存方式</strong><p>「视频」转为 H.264 编码的 MP4 或 AVI；「音频」提取为 48,000 Hz、256 kbps 的 AAC 音频，优先使用兼容性较好的 M4A 封装。</p></li><li><strong>提取并保存</strong><p>开始提取后可查看进度或取消。完成后点击「保存文件」，由浏览器下载到你的电脑。</p></li></ol><div class="dialog-note"><h3>关于原文件与兼容性</h3><p>「原文件」尽量保留站点提供的媒体编码和封装，实际后缀由来源决定。H.264 输出会重新编码，不是逐字节相同的原文件。</p><p>AVI 支持因播放器而异，H.264 + AAC 在 MP4 中通常有更好的兼容性。缺少音轨的源视频可导出无声视频，不能提取音频。</p><p>网站支持范围取决于站点与解析器。浏览器解析使用独立会话，需要你自行登录或完成验证；无法提取受 DRM 保护的内容。仅处理你有权下载和使用的内容。</p></div></dialog>
+  <dialog id="health-dialog" class="info-dialog health-dialog" aria-labelledby="health-title"><div class="dialog-heading"><div><span class="eyebrow small">LOCAL ENVIRONMENT</span><h2 id="health-title">本地运行环境</h2></div><button class="icon-button dialog-close" type="button" aria-label="关闭环境信息">×</button></div><p class="muted-text">解析与转码由这台电脑上的服务完成。</p><p id="storage-location" class="muted-text" style="overflow-wrap:anywhere"></p><dl id="dependency-list" class="dependency-list"></dl><div class="dialog-note"><p>Python 负责应用与任务管理，FFmpeg 负责媒体转换，yt-dlp 负责支持的网站解析。浏览器支持用于登录并读取目标视频。缺失依赖时，请根据项目说明安装后重启服务。</p></div><button id="refresh-health" class="button button-dark" type="button">重新检查 <span aria-hidden="true">↻</span></button></dialog>
+  <dialog id="douyin-dialog" class="info-dialog session-dialog" aria-labelledby="douyin-title"><div class="dialog-heading"><div><span class="eyebrow small">SITE ACCESS</span><h2 id="douyin-title">抖音访问设置</h2></div><button class="icon-button dialog-close" type="button" aria-label="关闭抖音访问设置">×</button></div><p class="muted-text">部分视频需要有效的抖音会话。可导入你从浏览器导出的 Netscape 格式 cookies.txt 文件，让本地程序使用该会话访问抖音。</p><div class="session-status" role="status"><span class="field-label">当前状态</span><span id="douyin-status">尚未读取</span></div><label class="field-label" for="douyin-cookie-file">选择本机的 cookies.txt 文件</label><input id="douyin-cookie-file" class="session-file" type="file" accept=".txt,text/plain" aria-describedby="douyin-file-hint douyin-error"><p id="douyin-file-hint" class="muted-text">Netscape 格式 · 最大 256 KiB · 选择后点击「导入会话」</p><p id="douyin-error" class="inline-error" role="alert" hidden></p><div class="session-actions"><button id="douyin-clear-button" class="button button-secondary" type="button" disabled>清除会话</button><button id="douyin-import-button" class="button button-dark" type="button" disabled>导入会话 <span aria-hidden="true">↗</span></button></div><div class="dialog-note"><p>只接收抖音域名的 Cookie，保存在本地服务内存中；重启服务即清除。程序不会自动读取浏览器个人资料，也不会显示或记录 Cookie 内容。</p><p>会话文件包含登录凭据，请只在本机选择，不要发送到聊天。有效会话也不能保证所有视频都能解析；导入后请回到工作台重新解析。</p></div></dialog>
+  <dialog id="upscale-dialog" class="info-dialog upscale-dialog" aria-labelledby="upscale-title"><div class="dialog-heading"><div><span class="eyebrow small">LOCAL AI CONNECTION</span><h2 id="upscale-title">本地 AI 接口设置</h2></div><button class="icon-button dialog-close" type="button" aria-label="关闭本地 AI 接口设置">×</button></div><p class="muted-text">拾帧向本机 AI 服务提交画面，取回处理结果后导出视频。优先使用已就绪的 RTX 超分，或连接已有 ComfyUI。</p><div id="upscale-providers" class="upscale-providers" role="status"></div><label class="field-label" for="comfyui-url">ComfyUI 本机地址</label><input id="comfyui-url" class="connection-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="http://127.0.0.1:8188" value="http://127.0.0.1:8188" aria-describedby="comfyui-url-hint upscale-error"><p id="comfyui-url-hint" class="muted-text setting-hint">只连接本机地址：127.0.0.1、localhost 或 [::1]。请先启动你的 ComfyUI。</p><label class="field-label comfyui-model-label" for="comfyui-model">超分模型</label><select id="comfyui-model" aria-describedby="comfyui-model-hint"><option value="">检测后选择本机模型</option></select><p id="comfyui-model-hint" class="muted-text setting-hint">点击「检测并保存」读取服务中的超分模型，再选择模型并保存。服务离线时也可保留地址与已有模型配置。</p><p id="upscale-error" class="inline-error" role="alert" hidden></p><p id="upscale-save-status" class="muted-text setting-hint" role="status" hidden></p><div class="session-actions"><button id="upscale-save-button" class="button button-dark" type="button">检测并保存 <span aria-hidden="true">↻</span></button></div><div class="dialog-note"><p>RTX 显卡存在并不代表 RTX AI 超分已就绪；这里以实际超分接口检测结果为准。</p><p>本次为拾帧主动调用的单向连接，不修改 ComfyUI 的 Python 环境，不自动下载模型。更大的目标尺寸会增加处理时间、显存和临时磁盘占用，模型效果因素材而异。</p></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

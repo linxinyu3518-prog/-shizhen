@@ -1,0 +1,8 @@
+{
+  "ffmpeg": "C:/ffmpeg/bin/ffmpeg.exe",
+  "ffprobe": "C:/ffmpeg/bin/ffprobe.exe",
+  "node": "C:/Program Files/nodejs/node.exe",
+  "rtx_python": "C:/AI/ComfyUI/python/python.exe",
+  "comfyui_python": "C:/AI/ComfyUI/python/python.exe",
+  "comfyui_root": "C:/AI/ComfyUI/ComfyUI"
+}

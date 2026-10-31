@@ -1,0 +1,2 @@
+# Optional interactive browser discovery. SPDX-License-Identifier: GPL-3.0-or-later
+playwright==1.62.0

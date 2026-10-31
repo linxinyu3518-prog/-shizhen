@@ -1,0 +1,3 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Optional website adapter. Core server and direct-file adapter use Python stdlib.
+yt-dlp==2026.8.19
